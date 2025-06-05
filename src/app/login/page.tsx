@@ -80,7 +80,7 @@ export default function Login() {
 
         <p className="text-center text-gray-400 text-sm mt-4">
           Ainda não tem uma conta?{' '}
-          <a href="/signup" className="text-green-500 hover:underline">
+          <a href="/cadastro" className="text-green-500 hover:underline">
             Cadastre-se
           </a>
         </p>
