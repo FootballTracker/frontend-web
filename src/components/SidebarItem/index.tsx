@@ -20,7 +20,7 @@ export default function SidebarItem({
 
   return (
     <div
-      className="flex gap-2 py-3 hover:text-red transition-colors"
+      className="flex gap-2 py-3 hover:text-red"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
