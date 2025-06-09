@@ -10,3 +10,10 @@
   --color-green: #6DA152;
   --font-kdam: var(--font-kdam)
 }
+body {
+  background-color: #1e1e1e;
+}
+.input {
+  @apply w-full px-4 py-2 rounded-full bg-[#1e1e1e] text-white border border-gray-600 focus:border-green-500;
+}
+
