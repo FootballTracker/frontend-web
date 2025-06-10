@@ -3,6 +3,7 @@
 import FavoriteTeams from "@/components/teams/FavoriteTeams";
 import LeaguesList from "@/components/teams/LeaguesList";
 import axios from "axios";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
@@ -104,8 +105,9 @@ export default function TimesPage() {
       {searchQuery || showAllTeams ? (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
           {filteredTeams.map((team) => (
-            <div
+            <Link
               key={team.id}
+              href={`/times/${team.id}`}
               className="bg-red rounded-lg p-4 flex flex-col items-center justify-center gap-2 text-center hover:scale-105 transition-all cursor-pointer"
             >
               <img
@@ -114,7 +116,7 @@ export default function TimesPage() {
                 className="w-16 h-16 object-contain"
               />
               <p className="text-white font-semibold">{team.name}</p>
-            </div>
+            </Link>
           ))}
         </div>
       ) : (
