@@ -1,7 +1,12 @@
+import { Team } from "@/app/(general)/times/page";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 
-export default function FavoriteTeams() {
+interface IFavoriteTeams {
+  teams: Team[];
+}
+
+export default function FavoriteTeams({ teams }: IFavoriteTeams) {
   return (
     <div className="flex flex-col gap-8 text-white ">
       <div className="flex items-center gap-2 text-[32px] border-b border-red pb-5">
@@ -11,40 +16,26 @@ export default function FavoriteTeams() {
 
       {/* lista de times favoritos */}
       <div className="flex flex-col gap-4">
-        {mockTeams.map((team) => (
-          <div className="flex justify-between gap-16">
-            <div className="flex gap-2">
-              <Image
-                src={team.logo}
-                height={32}
-                width={32}
-                alt="Logo do time"
-              />
-              <span className="text-[28px]">{team.name}</span>
-            </div>
+        {teams.length > 0 ? (
+          teams.map((team) => (
+            <div className="flex justify-between gap-16">
+              <div className="flex gap-2">
+                <Image
+                  src={team.logo}
+                  height={32}
+                  width={32}
+                  alt="Logo do time"
+                />
+                <span className="text-[28px]">{team.name}</span>
+              </div>
 
-            <FaStar size={36} color="#933038" />
-          </div>
-        ))}
+              <FaStar size={36} color="#933038" />
+            </div>
+          ))
+        ) : (
+          <span> Você não tem favoritos, faça login para ver. </span>
+        )}
       </div>
     </div>
   );
 }
-
-const mockTeams: {
-  logo: string;
-  name: string;
-}[] = [
-  {
-    logo: "/mock-icons/internacional.svg",
-    name: "Internacional",
-  },
-  {
-    logo: "/mock-icons/internacional.svg",
-    name: "Bahia",
-  },
-  {
-    logo: "/mock-icons/internacional.svg",
-    name: "Brasil",
-  },
-];
