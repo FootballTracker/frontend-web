@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FaStar } from "react-icons/fa";
+import { FaInfoCircle, FaStar } from "react-icons/fa";
 import axios, { AxiosError } from "axios";
 import { IoIosFootball } from "react-icons/io";
 import { TeamDetailsResponse } from "@/utils/types/team-with-id-response.types";
 import MatchCard from "../MatchCard";
+import CardWithBulletPoint from "@/components/shared/CardWithBulletPoint";
 
 export interface Team {
   id: number;
@@ -73,23 +74,57 @@ export default function TeamDetails({ team_id }: ITeamDetailsProps) {
       <div className="flex justify-between items-center gap-16">
         <div className="flex items-center gap-4">
           {team.team.logo && (
-            <Image src={team.team.logo} height={32} width={32} alt="Logo do time" />
+            <Image
+              src={team.team.logo}
+              height={32}
+              width={32}
+              alt="Logo do time"
+            />
           )}
           <span className="text-[28px]">{team.team.name}</span>
         </div>
-        <FaStar size={36} color={team.team.is_favorite ? "#FFD700" : "#933038"} />
+        <FaStar
+          size={36}
+          color={team.team.is_favorite ? "#FFD700" : "#933038"}
+        />
       </div>
 
-      <section className="flex flex-col gap-5">
-        <div className="flex items-center gap-2 text-[32px] border-b border-red pb-5">
-          <IoIosFootball size={36} color="#933038" />
-          <h2>Últimas partidas</h2>
+      <section className="flex gap-8">
+        {/* ultimas partidas */}
+        <div className="flex flex-col gap-5">
+          <div className="flex items-center gap-2 text-[32px] border-b border-red pb-5">
+            <IoIosFootball size={36} color="#933038" />
+            <h2>Últimas partidas</h2>
+          </div>
+
+          <div className="flex flex-col w-full gap-2">
+            {team.last_matches.map((match) => (
+              <MatchCard key={match.id} matchInfo={match} />
+            ))}
+          </div>
         </div>
 
-        <div className="flex flex-col w-full gap-2">
-          {team.last_matches.map((match) => (
-            <MatchCard key={match.id} matchInfo={match} />
-          ))}
+        {/* info geral */}
+        <div className="flex flex-col gap-5">
+          <div className="flex items-center gap-2 text-[32px] border-b border-red pb-5">
+            <FaInfoCircle size={36} color="#933038" />
+            <h2>Geral</h2>
+          </div>
+
+          <div className="flex flex-col w-full gap-2">
+            <CardWithBulletPoint 
+              title="Sigla"
+              text={team.team.code}
+            />
+            <CardWithBulletPoint 
+              title="País"
+              text={team.team.country}
+            />
+            <CardWithBulletPoint 
+              title="Fundação"
+              text={team.team.founded}
+            />
+          </div>
         </div>
       </section>
     </main>
