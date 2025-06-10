@@ -36,15 +36,15 @@ const mockTeams: {
   name: string;
 }[] = [
   {
-    logo: "/team-icons/internacional.svg",
+    logo: "/mock-icons/internacional.svg",
     name: "Internacional",
   },
   {
-    logo: "/team-icons/internacional.svg",
+    logo: "/mock-icons/internacional.svg",
     name: "Bahia",
   },
   {
-    logo: "/team-icons/internacional.svg",
+    logo: "/mock-icons/internacional.svg",
     name: "Brasil",
   },
 ];

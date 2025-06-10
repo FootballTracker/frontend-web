@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 
 export default function TimesPage() {
   return (
-    <main className="flex flex-col gap-6 py-7 px-10">
+    <main className="flex flex-col gap-6 py-7 px-10 overflow-y-scroll">
       <h1 className="text-white text-3xl">Times</h1>
 
       <div className="flex gap-2 bg-light-background px-2.5 py-2 rounded-lg border border-black text-white max-w-[500px]">

@@ -53,7 +53,7 @@ export default function Signup() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/signup", {
+      const response = await fetch("http://localhost:8000/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
