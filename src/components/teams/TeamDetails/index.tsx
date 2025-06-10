@@ -8,6 +8,7 @@ import { IoIosFootball } from "react-icons/io";
 import { TeamDetailsResponse } from "@/utils/types/team-with-id-response.types";
 import MatchCard from "../MatchCard";
 import CardWithBulletPoint from "@/components/shared/CardWithBulletPoint";
+import { MdStadium } from "react-icons/md";
 
 export interface Team {
   id: number;
@@ -71,7 +72,7 @@ export default function TeamDetails({ team_id }: ITeamDetailsProps) {
   return (
     <main className="flex flex-col gap-8 p-10 text-white">
       {/* nome do time */}
-      <div className="flex justify-between items-center gap-16">
+      <div className="flex justify-between items-center gap-16 w-fit">
         <div className="flex items-center gap-4">
           {team.team.logo && (
             <Image
@@ -112,18 +113,42 @@ export default function TeamDetails({ team_id }: ITeamDetailsProps) {
           </div>
 
           <div className="flex flex-col w-full gap-2">
-            <CardWithBulletPoint 
-              title="Sigla"
-              text={team.team.code}
+            <CardWithBulletPoint title="Sigla" text={team.team.code} />
+            <CardWithBulletPoint title="País" text={team.team.country} />
+            <CardWithBulletPoint title="Fundação" text={team.team.founded} />
+          </div>
+        </div>
+
+        {/* estadio */}
+        <div className="flex flex-col gap-5">
+          <div className="flex items-center gap-2 text-[32px] border-b border-red pb-5">
+            <MdStadium size={36} color="#933038" />
+            <h2>Estádio</h2>
+          </div>
+
+          <div className="flex flex-col w-full gap-2">
+            <CardWithBulletPoint title="Nome" text={team.team_venue.name} />
+            <CardWithBulletPoint
+              title="Endereço"
+              text={team.team_venue.address}
             />
-            <CardWithBulletPoint 
-              title="País"
-              text={team.team.country}
+            <CardWithBulletPoint title="Cidade" text={team.team_venue.city} />
+            <CardWithBulletPoint
+              title="Capacidade"
+              text={team.team_venue.capacity}
             />
-            <CardWithBulletPoint 
-              title="Fundação"
-              text={team.team.founded}
+            <CardWithBulletPoint
+              title="Gramado"
+              text={team.team_venue.surface}
             />
+
+            <div className="relative w-full min-w-[280px] h-[240px] border border-red rounded-xl overflow-hidden">
+              <Image
+                src={team.team_venue.image_url}
+                fill
+                alt="Foto do estádio"
+              />
+            </div>
           </div>
         </div>
       </section>
