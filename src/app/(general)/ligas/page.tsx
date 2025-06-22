@@ -1,7 +1,7 @@
 "use client";
 
+import LeaguesTable from "@/components/leagues/LeaguesTable";
 import FavoriteList from "@/components/teams/FavoriteList";
-import LeaguesList from "@/components/teams/LeaguesList";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -16,20 +16,10 @@ export interface League {
   api_id: number;
 }
 
-export interface Team {
-  id: number;
-  name: string;
-  logo: string;
-  is_favorite: boolean;
-}
-
-export default function TimesPage() {
+export default function LigasPage() {
   const [leagues, setLeagues] = useState<League[]>([]);
-  const [teams, setTeams] = useState<Team[]>([]);
-  const [favoriteTeams, setFavoriteTeams] = useState<Team[]>([]);
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [showAllTeams, setShowAllTeams] = useState(false);
 
   useEffect(() => {
     const fetchLeagues = async () => {
@@ -51,78 +41,47 @@ export default function TimesPage() {
     fetchLeagues();
   }, []);
 
-  useEffect(() => {
-    const fetchTeams = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8000/teams?user_id=99",
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-
-        if (response) {
-          setTeams(response.data.teams);
-          setFavoriteTeams(response.data.favorite_team);
-        }
-      } catch (error) {
-        console.error("Error fetching teams");
-      }
-    };
-
-    fetchTeams();
-  }, []);
-
-  // Filtra os times baseado na pesquisa (case-insensitive)
-  const filteredTeams = teams.filter((team) =>
-    team.name.toLowerCase().includes(searchQuery.toLowerCase())
+  // Filtra as ligas baseado na pesquisa (case-insensitive)
+  const filteredLeagues = leagues.filter((league) =>
+    league.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <main className="flex flex-col gap-6 py-7 px-10 overflow-y-scroll w-full">
-      <h1 className="text-white text-3xl">Times</h1>
+      <h1 className="text-white text-3xl">Ligas</h1>
 
       <div className="flex gap-2 bg-light-background px-2.5 py-2 rounded-lg border border-black text-white max-w-[500px]">
         <FaSearch size={24} color="white" />
         <input
           type="text"
-          placeholder="Pesquise seu time..."
+          placeholder="Pesquise por liga..."
           className="outline-none focus:outline-none bg-transparent w-full"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
-      <div className="flex">
-        <button
-          onClick={() => setShowAllTeams(!showAllTeams)}
-          className="bg-red text-white font-bold py-2 px-4 rounded hover:scale-105 transition-all cursor-pointer"
-        >
-          {showAllTeams ? "Ocultar times" : "Ver todos os times"}
-        </button>
-      </div>
 
-      {searchQuery || showAllTeams ? (
+      {searchQuery ? (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
-          {filteredTeams.map((team) => (
+          {filteredLeagues.map((league) => (
             <Link
-              key={team.id}
-              href={`/times/${team.id}`}
+              key={league.id}
+              href={`/times/${league.id}`}
               className="bg-red rounded-lg p-4 flex flex-col items-center justify-center gap-2 text-center hover:scale-105 transition-all cursor-pointer"
             >
               <img
-                src={team.logo}
-                alt={team.name}
+                src={league.logo_url}
+                alt={league.name}
                 className="w-16 h-16 object-contain"
               />
-              <p className="text-white font-semibold">{team.name}</p>
+              <p className="text-white font-semibold">{league.name}</p>
             </Link>
           ))}
         </div>
       ) : (
         <div className="flex gap-16">
-          <FavoriteList listOf={favoriteTeams} type="team"/>
-          <LeaguesList leagues={leagues} />
+          <FavoriteList listOf={leagues} type="league"/>
+          <LeaguesTable leagues={leagues} />
         </div>
       )}
     </main>
