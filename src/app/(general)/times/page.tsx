@@ -35,14 +35,14 @@ export default function TimesPage() {
     const fetchLeagues = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/leagues?user_id=99",
+          "http://localhost:8000/leagues?user_id=1",
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
           }
         );
 
-        if (response) setLeagues(response.data.all_leagues);
+        if (response) setLeagues(response.data?.all_leagues || []);
       } catch (error) {
         console.error("Error fetching leagues");
       }
@@ -55,7 +55,7 @@ export default function TimesPage() {
     const fetchTeams = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/teams?user_id=99",
+          "http://localhost:8000/teams?user_id=1",
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -63,8 +63,10 @@ export default function TimesPage() {
         );
 
         if (response) {
-          setTeams(response.data.teams);
-          setFavoriteTeams(response.data.favorite_team);
+          console.log(response.data.all_teams);
+          
+          setTeams(response.data?.all_teams || []);
+          setFavoriteTeams(response.data?.favorite_team || []);
         }
       } catch (error) {
         console.error("Error fetching teams");
@@ -74,10 +76,11 @@ export default function TimesPage() {
     fetchTeams();
   }, []);
 
-  // Filtra os times baseado na pesquisa (case-insensitive)
-  const filteredTeams = teams.filter((team) =>
-    team.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+
+    const filteredTeams = teams.filter((team) =>
+      team.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
 
   return (
     <main className="flex flex-col gap-6 py-7 px-10 overflow-y-scroll w-full">
@@ -121,7 +124,7 @@ export default function TimesPage() {
         </div>
       ) : (
         <div className="flex gap-16">
-          <FavoriteList listOf={favoriteTeams} type="team"/>
+          <FavoriteList listOf={favoriteTeams} type="team" />
           <LeaguesList leagues={leagues} />
         </div>
       )}

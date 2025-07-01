@@ -30,6 +30,7 @@
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
     "postcss": "^8",
+    "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4.1.7",
     "tw-animate-css": "^1.3.4",
     "typescript": "^5"

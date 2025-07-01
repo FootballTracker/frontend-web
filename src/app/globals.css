@@ -130,3 +130,4 @@ body {
   body {
     @apply bg-background text-foreground;}}
 
+@plugin 'tailwind-scrollbar';

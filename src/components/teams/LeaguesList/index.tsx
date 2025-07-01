@@ -20,8 +20,7 @@ export default function LeaguesList({ leagues }: ILeaguesList) {
         {leagues.map((league) => (
           <LeagueCard
             key={league.id}
-            logo={league.logo_url}
-            name={league.name}
+            league={league}
           />
         ))}
       </div>
