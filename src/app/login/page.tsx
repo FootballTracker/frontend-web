@@ -29,8 +29,8 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        // ✅ Redireciona para dashboard, home ou qualquer página
-        router.push("/dashboard");
+        localStorage.setItem("access_token", data.access_token)
+        router.push("/times");
       } else {
         const errorData = await response.json();
         setError(errorData.detail || "Erro no login");
