@@ -6,7 +6,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex h-[100dvh] bg-light-background font-kdam">
+    <div className="flex h-[100dvh] bg-medium-background font-kdam">
       <Sidebar /> 
       {children}
     </div>

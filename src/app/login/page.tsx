@@ -1,28 +1,28 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { FaSignInAlt } from 'react-icons/fa';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import { FaSignInAlt } from "react-icons/fa";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const router = useRouter();
 
-  const [usernameOrEmail, setUsernameOrEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = async () => {
-    setError('');
+    setError("");
 
-    const payload = usernameOrEmail.includes('@')
+    const payload = usernameOrEmail.includes("@")
       ? { email: usernameOrEmail, password }
       : { username: usernameOrEmail, password };
 
     try {
-      const response = await fetch('http://localhost:8000/signin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:8000/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
@@ -30,13 +30,13 @@ export default function Login() {
         const data = await response.json();
         console.log(data);
         // ✅ Redireciona para dashboard, home ou qualquer página
-        router.push('/dashboard');
+        router.push("/dashboard");
       } else {
         const errorData = await response.json();
-        setError(errorData.detail || 'Erro no login');
+        setError(errorData.detail || "Erro no login");
       }
     } catch (err) {
-      setError('Erro ao conectar ao servidor');
+      setError("Erro ao conectar ao servidor");
     }
   };
 
@@ -48,7 +48,8 @@ export default function Login() {
         </div>
         <h2 className="text-center text-white text-xl font-bold mb-2">LOGIN</h2>
         <p className="text-gray-400 text-sm text-center mb-6">
-          Faça login para personalizar sua experiência com jogadores, ligas e times favoritos.
+          Faça login para personalizar sua experiência com jogadores, ligas e
+          times favoritos.
         </p>
 
         <div className="flex flex-col gap-4">
@@ -73,13 +74,11 @@ export default function Login() {
             <FaSignInAlt /> Entrar
           </button>
 
-          {error && (
-            <p className="text-red-500 text-sm text-center">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
         </div>
 
         <p className="text-center text-gray-400 text-sm mt-4">
-          Ainda não tem uma conta?{' '}
+          Ainda não tem uma conta?{" "}
           <a href="/cadastro" className="text-green-500 hover:underline">
             Cadastre-se
           </a>
