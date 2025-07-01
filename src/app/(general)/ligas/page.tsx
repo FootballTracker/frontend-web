@@ -66,7 +66,7 @@ export default function LigasPage() {
           {filteredLeagues.map((league) => (
             <Link
               key={league.id}
-              href={`/times/${league.id}`}
+              href={`/ligas/${league.id}`}
               className="bg-red rounded-lg p-4 flex flex-col items-center justify-center gap-2 text-center hover:scale-105 transition-all cursor-pointer"
             >
               <img
